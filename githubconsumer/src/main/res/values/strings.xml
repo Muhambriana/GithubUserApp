@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GitHubConsumer</string>
+    <string name="username_user">"@Username"</string>
+    <string name="et">"@%s"</string>
+</resources>

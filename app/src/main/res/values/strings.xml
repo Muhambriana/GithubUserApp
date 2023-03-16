@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">GitHub</string>
+
+    <string name="search">Search User</string>
+    <string name="favorite_user">Favorite User</string>
+    <string name="username_user">"@Username"</string>
+    <string name="name_user">Nama User</string>
+    <string name="location_user">Location</string>
+    <string name="repository_user">"%s \n Repositories"</string>
+    <string name="company_user">Company</string>
+    <string name="followers_user">"%s \n Followers"</string>
+    <string name="following_user">"%s \n Following"</string>
+    <string name="et">"@%s"</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="alarm_header">Alarm</string>
+
+    <!-- Alarm Preferences -->
+    <string name="alarm_key">ALARM_KEY</string>
+    <string name="attachment_title">Reminder GitHub at 9 AM</string>
+    <string name="attachment_summary_on">Alarm is On</string>
+    <string name="attachment_summary_off">Alarm is Off</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sv_widget"
+        android:textCursorDrawable="@null"
+        android:title="@string/search"
+        android:icon="@drawable/search_icon_foreground"
+        app:iconifiedByDefault="false"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="collapseActionView|always"
+        app:queryBackground="@null"
+        app:queryHint="Username" />
+    <item
+        android:id="@+id/fu_menu"
+        android:textCursorDrawable="@null"
+        android:title="@string/favorite_user"
+        android:icon="@drawable/favorite_icon_foreground"
+        app:iconifiedByDefault="false"
+        app:showAsAction="collapseActionView|always"
+        app:queryBackground="@null"
+        app:queryHint="Username" />
+
+    <item
+        android:id="@+id/setting_menu"
+        android:textCursorDrawable="@null"
+        android:title="@string/favorite_user"
+        android:icon="@drawable/settings_icon_foreground"
+        app:iconifiedByDefault="false"
+        app:showAsAction="collapseActionView|always"
+        app:queryBackground="@null"
+        app:queryHint="Username" />
+
+</menu>
