@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
+import com.muhamapps.githubuserapp3.BuildConfig
 import com.muhamapps.githubuserapp3.R
 import com.muhamapps.githubuserapp3.activity.GitUserDetailActivity
 import com.muhamapps.githubuserapp3.adapter.GitUserAdapter
@@ -62,7 +63,7 @@ class FollowersFragment : Fragment() {
 
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/$idUsername/followers"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token ${BuildConfig.URL}")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -149,7 +150,7 @@ class FollowersFragment : Fragment() {
     private fun showUserDetail(idUsername: String, idAvatar: String) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/${idUsername}"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token ${BuildConfig.URL}")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
