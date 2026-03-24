@@ -15,15 +15,17 @@ import com.muhamapps.githubuserapp3.BuildConfig
 import com.muhamapps.githubuserapp3.R
 import com.muhamapps.githubuserapp3.activity.GitUserDetailActivity
 import com.muhamapps.githubuserapp3.adapter.GitUserAdapter
+import com.muhamapps.githubuserapp3.databinding.FragmentFollowersBinding
+import com.muhamapps.githubuserapp3.databinding.FragmentFollowingBinding
 import com.muhamapps.githubuserapp3.entity.GitUser
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.fragment_following.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
 
 class FollowingFragment : Fragment() {
-
+    private var _binding: FragmentFollowingBinding? = null
+    private val binding get() = _binding!!
     private val listUserFollowing = ArrayList<GitUser>()
     private val listFollowingDetail = ArrayList<GitUser>()
 
@@ -47,7 +49,8 @@ class FollowingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_following, container, false)
+        _binding = FragmentFollowingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +61,7 @@ class FollowingFragment : Fragment() {
 
     private fun showUserFollowing(idUsername: String?) {
 
-        progressBar.visibility = View.VISIBLE //Memunculkan progess bar
+        binding.progressBar.visibility = View.VISIBLE //Memunculkan progess bar
 
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/$idUsername/following"
@@ -71,7 +74,7 @@ class FollowingFragment : Fragment() {
                 responseBody: ByteArray
             ) {
                 //Here the Code, Jika Koneksi Berhasil
-                progressBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
 
                 val result = String(responseBody)
                 Log.d(TAG, result)
@@ -112,7 +115,7 @@ class FollowingFragment : Fragment() {
                 error: Throwable
             ) {
                 //Here the Code, Jika Koneksi Gagal
-                progressBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
 
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
@@ -131,10 +134,10 @@ class FollowingFragment : Fragment() {
 
         if (users.isNotEmpty()) {
 
-            rv_user_following.layoutManager = LinearLayoutManager(activity)
+            binding.rvUserFollowing.layoutManager = LinearLayoutManager(activity)
             val gitUserAdapter =
                 GitUserAdapter(users)
-            rv_user_following.adapter = gitUserAdapter
+            binding.rvUserFollowing.adapter = gitUserAdapter
 
             gitUserAdapter.setOnItemClickCallback(object : GitUserAdapter.OnItemClickCallback{
                 override fun onItemClicked(data: GitUser) {

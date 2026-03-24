@@ -54,13 +54,6 @@ class SettingsActivity : AppCompatActivity() {
             preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
         }
 
-        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-            if (key == alarm) {
-                alarmState.isChecked = sharedPreferences.getBoolean(alarm, false)
-            }
-            setAlarmState(alarmState.isChecked)
-        }
-
         private fun setSummaries() {
             val sh = preferenceManager.sharedPreferences
             alarmState.isChecked = sh.getBoolean(alarm, false)
@@ -73,6 +66,16 @@ class SettingsActivity : AppCompatActivity() {
             else{
                 context?.let { alarmReceiver.setAlarmOn(it) }
             }
+        }
+
+        override fun onSharedPreferenceChanged(
+            sharedPreferences: SharedPreferences?,
+            key: String?
+        ) {
+            if (key == alarm) {
+                alarmState.isChecked = sharedPreferences?.getBoolean(alarm, false) == true
+            }
+            setAlarmState(alarmState.isChecked)
         }
     }
 }

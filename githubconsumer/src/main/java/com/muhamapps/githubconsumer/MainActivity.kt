@@ -9,8 +9,8 @@ import android.os.HandlerThread
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.muhamapps.githubconsumer.databinding.ActivityMainBinding
 import com.muhamapps.githubconsumer.adapter.FavoriteUserAdapter
+import com.muhamapps.githubconsumer.databinding.ActivityMainBinding
 import com.muhamapps.githubconsumer.db.FavoriteUserContract.FavoriteUserColumns.Companion.CONTENT_URI
 import com.muhamapps.githubconsumer.entity.GitUser
 import com.muhamapps.githubconsumer.helper.MappingHelper

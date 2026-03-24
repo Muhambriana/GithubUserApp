@@ -15,15 +15,17 @@ import com.muhamapps.githubuserapp3.BuildConfig
 import com.muhamapps.githubuserapp3.R
 import com.muhamapps.githubuserapp3.activity.GitUserDetailActivity
 import com.muhamapps.githubuserapp3.adapter.GitUserAdapter
+import com.muhamapps.githubuserapp3.databinding.FragmentFollowersBinding
 import com.muhamapps.githubuserapp3.entity.GitUser
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.fragment_followers.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
 
 class FollowersFragment : Fragment() {
 
+    private var _binding: FragmentFollowersBinding? = null
+    private val binding get() = _binding!!
     private val listUserFollowers = ArrayList<GitUser>()
     private val listFollowersDetail = ArrayList<GitUser>()
 
@@ -48,7 +50,8 @@ class FollowersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_followers, container, false)
+        _binding = FragmentFollowersBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,7 +62,7 @@ class FollowersFragment : Fragment() {
 
     private fun showDataUser(idUsername: String?) {
 
-        progressBar.visibility = View.VISIBLE //Memunculkan progess bar
+        binding.progressBar.visibility = View.VISIBLE //Memunculkan progess bar
 
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/$idUsername/followers"
@@ -72,7 +75,7 @@ class FollowersFragment : Fragment() {
                 responseBody: ByteArray
             ) {
                 //Here the Code, if connection success
-                progressBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
 
                 val result = String(responseBody)
                 Log.d(TAG, result)
@@ -113,7 +116,7 @@ class FollowersFragment : Fragment() {
                 error: Throwable
             ) {
                 //Here the Code, if connection failed
-                progressBar.visibility = View.INVISIBLE
+                binding.progressBar.visibility = View.INVISIBLE
 
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
@@ -132,10 +135,10 @@ class FollowersFragment : Fragment() {
 
         if (users.isNotEmpty()) {
 
-            rv_user_followers.layoutManager = LinearLayoutManager(activity)
+            binding.rvUserFollowers.layoutManager = LinearLayoutManager(activity)
             val gitUserAdapter =
                 GitUserAdapter(users)
-            rv_user_followers.adapter = gitUserAdapter
+            binding.rvUserFollowers.adapter = gitUserAdapter
 
             gitUserAdapter.setOnItemClickCallback(object : GitUserAdapter.OnItemClickCallback{
                 override fun onItemClicked(data: GitUser) {
@@ -216,4 +219,8 @@ class FollowersFragment : Fragment() {
         startActivity(moveDataWithParcelable)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

@@ -13,17 +13,20 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.muhamapps.githubuserapp3.R
 import com.muhamapps.githubuserapp3.adapter.FavoriteUserAdapter
 import com.muhamapps.githubuserapp3.adapter.SectionsPagerAdapter
+import com.muhamapps.githubuserapp3.databinding.ActivityGitUserDetailBinding
 import com.muhamapps.githubuserapp3.db.FavoriteUserContract
 import com.muhamapps.githubuserapp3.db.FavoriteUserContract.FavoriteUserColumns.Companion.CONTENT_URI
 import com.muhamapps.githubuserapp3.db.FavoriteUserHelper
 import com.muhamapps.githubuserapp3.entity.GitUser
 import com.muhamapps.githubuserapp3.helper.MappingHelper
-import kotlinx.android.synthetic.main.activity_git_user_detail.*
 
 
 class GitUserDetailActivity : AppCompatActivity() {
 
     private lateinit var adapterFavoriteUser: FavoriteUserAdapter
+    private val binding: ActivityGitUserDetailBinding by lazy {
+        ActivityGitUserDetailBinding.inflate(layoutInflater)
+    }
 
     companion object {
         var EXTRA_USER = "extra_user"
@@ -31,7 +34,7 @@ class GitUserDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_git_user_detail)
+        setContentView(binding.root)
         supportActionBar?.title = "Detail User"
 
         val listUser = intent.getParcelableExtra<GitUser>(EXTRA_USER)
@@ -52,12 +55,12 @@ class GitUserDetailActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         //untuk memasukan data yang sudah didapat kedalam TextView
-        textViewUsername.text = getString(R.string.et, listUser?.username)
-        textViewNameUser.text = listUser?.name
-        textViewLocationUser.text = listUser?.location
-        textViewRepository.text = getString(R.string.repository_user, listUser?.repository)
-        textViewCompanyUser.text = listUser?.company
-        Glide.with(this).asBitmap().load(listUser?.avatar).into(imageViewUser)
+        binding.textViewUsername.text = getString(R.string.et, listUser?.username)
+        binding.textViewNameUser.text = listUser?.name
+        binding.textViewLocationUser.text = listUser?.location
+        binding.textViewRepository.text = getString(R.string.repository_user, listUser?.repository)
+        binding.textViewCompanyUser.text = listUser?.company
+        Glide.with(this).asBitmap().load(listUser?.avatar).into(binding.imageViewUser)
 
         adapterFavoriteUser = FavoriteUserAdapter(this)
 
@@ -74,7 +77,7 @@ class GitUserDetailActivity : AppCompatActivity() {
 
         var statusFavorite = listUser?.username?.let { getState(it) }
         statusFavorite?.let { setStatusFavorite(it) }
-        fab_favorite_user.setOnClickListener {
+        binding.fabFavoriteUser.setOnClickListener {
             if (statusFavorite == 1) {
                 statusFavorite = 0
                     contentResolver.delete(uriWithId, null, null)
@@ -132,10 +135,10 @@ class GitUserDetailActivity : AppCompatActivity() {
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setStatusFavorite(statusFavorite: Int) {
         if(statusFavorite == 1){
-            fab_favorite_user.setImageDrawable(getDrawable(R.drawable.favorite_icon_fill_foreground))
+            binding.fabFavoriteUser.setImageDrawable(getDrawable(R.drawable.favorite_icon_fill_foreground))
         }
         else{
-            fab_favorite_user.setImageDrawable(getDrawable(R.drawable.favorite_icon_blank_foreground))
+            binding.fabFavoriteUser.setImageDrawable(getDrawable(R.drawable.favorite_icon_blank_foreground))
         }
     }
 
@@ -156,7 +159,7 @@ class GitUserDetailActivity : AppCompatActivity() {
     }
 
     private fun showSnackbarMessage(message: String) {
-        Snackbar.make(detail_activity, message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
 
