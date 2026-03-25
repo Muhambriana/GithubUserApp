@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title = "Github Users"
+        supportActionBar?.title = getString(R.string.app_name)
 
         binding.rvUsers.setHasFixedSize(true)
 

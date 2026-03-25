@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHub</string>
+    <string name="app_name">GUE (GitHub User Explorer)</string>
 
     <string name="search">Search User</string>
     <string name="favorite_user">Favorite User</string>
