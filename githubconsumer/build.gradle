@@ -4,6 +4,14 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
 }
 
+def localPropsFile = rootProject.file("local.properties")
+def localProps = new Properties()
+if (localPropsFile.exists()) {
+    localProps.load(new FileInputStream(localPropsFile))
+}
+
+def token = localProps.getProperty('github_api_token') ?: ''
+
 android {
     namespace "com.muhamapps.githubconsumer"
     compileSdkVersion 36
@@ -14,7 +22,7 @@ android {
         targetSdkVersion 36
         versionCode 1
         versionName "1.0"
-        buildConfigField 'String', 'URL', token
+        buildConfigField "String", "URL", "\"${token}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
