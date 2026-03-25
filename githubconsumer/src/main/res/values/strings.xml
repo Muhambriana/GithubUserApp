@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHubConsumer</string>
+    <string name="app_name">GUE (GitHub User Explorer Consumer)</string>
     <string name="username_user">"@Username"</string>
     <string name="et">"@%s"</string>
 </resources>
