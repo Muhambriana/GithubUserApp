@@ -72,7 +72,8 @@ class AlarmReceiver : BroadcastReceiver() {
             set(Calendar.SECOND, 0)
         }
 
-        val pendingIntent = PendingIntent.getBroadcast(context, REPEATING_ID, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, REPEATING_ID, intent,
+            PendingIntent.FLAG_IMMUTABLE)
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
 
         Toast.makeText(context, "Alarm Is On Now", Toast.LENGTH_SHORT).show()
@@ -81,7 +82,8 @@ class AlarmReceiver : BroadcastReceiver() {
     fun setAlarmOff(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, REPEATING_ID, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, REPEATING_ID, intent,
+            PendingIntent.FLAG_IMMUTABLE)
         pendingIntent.cancel()
 
         alarmManager.cancel(pendingIntent)
